@@ -1,34 +1,20 @@
 package com.company;
 
 import javax.swing.table.AbstractTableModel;
-@SuppressWarnings("serial")
+//@SuppressWarnings("serial")
 public class GornerTableModel extends AbstractTableModel {
     private Double[] coefficients;
     private Double from;
     private Double to;
     private Double step;
     private double result;
-
     public GornerTableModel(Double from, Double to, Double step, Double[] coefficients) {
-
         this.from = from;
         this.to = to;
         this.step = step;
         this.coefficients = coefficients;
     }
-    public Double getFrom() {
-        return from;
-    }
-    public Double getTo() {
-        return to;
-    }
-    public Double getStep() {
-        return step;
-    }
-    public int getColumnCount() {
 
-        return 4;
-    }
     public int getRowCount() {
 
         return new Double(Math.ceil((to-from)/step)).intValue()+1;
@@ -47,29 +33,20 @@ public class GornerTableModel extends AbstractTableModel {
                 return result;
             }
             case 2:{
-                return result > 0;
-            }
-            case 3:{
-                if ((int)result % 2 != 0){
-                    return "pain";
-                } else{
-                    return "happiness";
-                }
+                if((int)result==result) return true;
+                else return false;
             }
             default: {
                 return 0;
             }
-
         }
     }
     public String getColumnName(int col) {
         switch (col) {
-            case 3:
-                return "life is";
             case 0:
                 return "Значение X";
             case 2:
-                return "Значение больше 0?";
+                return "Точное значение ?";
             default:
                 return "Значение многочлена";
         }
@@ -87,5 +64,18 @@ public class GornerTableModel extends AbstractTableModel {
             return Boolean.class;
         }
 
+    }
+    public Double getFrom() {
+        return from;
+    }
+    public Double getTo() {
+        return to;
+    }
+    public Double getStep() {
+        return step;
+    }
+    public int getColumnCount() {
+
+        return 3;
     }
 }

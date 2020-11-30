@@ -54,19 +54,16 @@ public class Main extends JFrame {
         Action aboutProgramAction = new AbstractAction("О программе") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(Main.this, "Трухов Илья\n7 группа", "О программе", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(Main.this, "Веремеенко Алена\n8 группа", "О программе", JOptionPane.INFORMATION_MESSAGE);
             }
         };
         JMenuItem aboutProgramItem = spravkaMenu.add(aboutProgramAction);
-
         Action saveToTextAction = new AbstractAction("Сохранить в текстовый файл") {
-
             public void actionPerformed(ActionEvent event) {
                 if (fileChooser==null) {
                     fileChooser = new JFileChooser();
                     fileChooser.setCurrentDirectory(new File("."));
                 }
-
                 if (fileChooser.showSaveDialog(Main.this) == JFileChooser.APPROVE_OPTION)
                     saveToTextFile(fileChooser.getSelectedFile());
 
@@ -75,7 +72,6 @@ public class Main extends JFrame {
         saveToTextMenuItem = fileMenu.add(saveToTextAction);
         saveToTextMenuItem.setEnabled(false);
         Action saveToGraphicsAction = new AbstractAction("Сохранить данные для построения графика") {
-
             public void actionPerformed(ActionEvent event) {
                 if (fileChooser==null) {
                     fileChooser = new JFileChooser();
@@ -86,22 +82,16 @@ public class Main extends JFrame {
 
             }
         };
-
         saveToGraphicsMenuItem = fileMenu.add(saveToGraphicsAction);
-
         saveToGraphicsMenuItem.setEnabled(false);
         Action searchValueAction = new AbstractAction("Найти значение многочлена") {
-
             public void actionPerformed(ActionEvent event) {
                 String value = JOptionPane.showInputDialog(Main.this, "Введите значение для поиска",
                         "Поиск значения", JOptionPane.QUESTION_MESSAGE);
-
                 renderer.setNeedle(value);
                 getContentPane().repaint();
             }
         };
-
-
         searchValueMenuItem = tableMenu.add(searchValueAction);
         searchValueMenuItem.setEnabled(false);
         JLabel labelForFrom = new JLabel("X изменяется на интервале от:");
@@ -113,8 +103,7 @@ public class Main extends JFrame {
         JLabel labelForStep = new JLabel("с шагом:");
         textFieldStep = new JTextField("0.1", 10);
         textFieldStep.setMaximumSize(textFieldStep.getPreferredSize());
-
-        Box hboxRange = Box.createHorizontalBox();
+       Box hboxRange = Box.createHorizontalBox();
         hboxRange.setBorder(BorderFactory.createBevelBorder(1));
         hboxRange.add(Box.createHorizontalGlue());
         hboxRange.add(Box.createHorizontalStrut(10));
@@ -132,7 +121,6 @@ public class Main extends JFrame {
                 new Double(hboxRange.getMaximumSize().getWidth()).intValue(),
                 new Double(hboxRange.getMinimumSize().getHeight()).intValue()*2));
         getContentPane().add(hboxRange, BorderLayout.NORTH);
-
         JButton buttonCalc = new JButton("Вычислить");
         buttonCalc.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
@@ -140,9 +128,7 @@ public class Main extends JFrame {
                     Double from = Double.parseDouble(textFieldFrom.getText());
                     Double to = Double.parseDouble(textFieldTo.getText());
                     Double step = Double.parseDouble(textFieldStep.getText());
-
                     data = new GornerTableModel(from, to, step, Main.this.coefficients);
-
                     JTable table = new JTable(data);
                     table.setDefaultRenderer(Double.class, renderer);
                     table.setRowHeight(30);
@@ -153,14 +139,12 @@ public class Main extends JFrame {
                     saveToGraphicsMenuItem.setEnabled(true);
                     searchValueMenuItem.setEnabled(true);
                 } catch (NumberFormatException ex) {
-
                     JOptionPane.showMessageDialog(Main.this,
                             "Ошибка в формате записи числа с плавающей точкой", "Ошибочный формат числа",
                             JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
-
         JButton buttonReset = new JButton("Очистить поля");
         buttonReset.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
@@ -175,7 +159,6 @@ public class Main extends JFrame {
                 getContentPane().validate();
             }
         });
-
         Box hboxButtons = Box.createHorizontalBox();
         hboxButtons.setBorder(BorderFactory.createBevelBorder(1));
         hboxButtons.add(Box.createHorizontalGlue());
@@ -183,17 +166,12 @@ public class Main extends JFrame {
         hboxButtons.add(Box.createHorizontalStrut(30));
         hboxButtons.add(buttonReset);
         hboxButtons.add(Box.createHorizontalGlue());
-
         hboxButtons.setPreferredSize(new Dimension(new
                 Double(hboxButtons.getMaximumSize().getWidth()).intValue(), new
                 Double(hboxButtons.getMinimumSize().getHeight()).intValue()*2));
-
         getContentPane().add(hboxButtons, BorderLayout.SOUTH);
-
         hBoxResult = Box.createHorizontalBox();
         hBoxResult.add(new JPanel());
-
-
         getContentPane().add(hBoxResult, BorderLayout.CENTER);
     }
     protected void saveToGraphicsFile(File selectedFile) {
@@ -203,7 +181,6 @@ public class Main extends JFrame {
                 out.writeDouble((Double)data.getValueAt(i,0));
                 out.writeDouble((Double)data.getValueAt(i,1));
             }
-
             out.close();
         } catch (Exception e)  { }
     }
@@ -219,8 +196,6 @@ public class Main extends JFrame {
             }
             out.println("");
             out.println("Интервал от " + data.getFrom() + " до " + data.getTo() + " с шагом " + data.getStep());
-            out.println("====================================================");
-
             for (int i = 0; i<data.getRowCount(); i++) {
                 out.println("Значение в точке " + data.getValueAt(i,0) + " равно " + data.getValueAt(i,1));
             }
@@ -245,9 +220,7 @@ public class Main extends JFrame {
             System.out.println("Ошибка преобразования строки '" + args[i] + "' в число типа Double");
             System.exit(-2);
         }
-
         Main frame = new Main(coefficients);
-
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
